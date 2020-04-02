@@ -36,6 +36,13 @@ export class Event extends Entity {
   })
   exposedPhotos?: string[];
 
+  @property({
+    type: 'string',
+    id: true,
+    generated: true,
+  })
+  id?: string;
+
   // Define well-known properties here
 
   // Indexer property to allow additional data
