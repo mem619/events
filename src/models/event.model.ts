@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {User} from './user.model';
 import {Place} from './place.model';
 
@@ -50,6 +50,9 @@ export class Event extends Entity {
 
   @belongsTo(() => Place)
   placeId: string;
+
+  @hasMany(() => User)
+  participants: User[];
   // Define well-known properties here
 
   // Indexer property to allow additional data

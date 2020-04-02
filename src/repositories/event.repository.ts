@@ -1,4 +1,4 @@
-import {DefaultCrudRepository, repository, BelongsToAccessor} from '@loopback/repository';
+import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory} from '@loopback/repository';
 import {Event, EventRelations, User, Place} from '../models';
 import {EventsDataSource} from '../datasources';
 import {inject, Getter} from '@loopback/core';
@@ -15,10 +15,14 @@ export class EventRepository extends DefaultCrudRepository<
 
   public readonly place: BelongsToAccessor<Place, typeof Event.prototype.id>;
 
+  public readonly participants: HasManyRepositoryFactory<User, typeof Event.prototype.id>;
+
   constructor(
     @inject('datasources.events') dataSource: EventsDataSource, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('PlaceRepository') protected placeRepositoryGetter: Getter<PlaceRepository>,
   ) {
     super(Event, dataSource);
+    this.participants = this.createHasManyRepositoryFactoryFor('participants', userRepositoryGetter,);
+    this.registerInclusionResolver('participants', this.participants.inclusionResolver);
     this.place = this.createBelongsToAccessorFor('place', placeRepositoryGetter,);
     this.registerInclusionResolver('place', this.place.inclusionResolver);
     this.owner = this.createBelongsToAccessorFor('owner', userRepositoryGetter,);
