@@ -45,6 +45,12 @@ export class Event extends Entity {
   })
   id?: string;
 
+  @property({
+    type: 'array',
+    itemType: 'object',
+  })
+  participants?: object[];
+
   @belongsTo(() => User)
   ownerId: string;
 
