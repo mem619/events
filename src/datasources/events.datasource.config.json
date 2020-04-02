@@ -1,0 +1,11 @@
+{
+  "name": "events",
+  "connector": "mongodb",
+  "url": "mongodb://localhost:27017/event-follow?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false",
+  "host": "localhost",
+  "port": 27017,
+  "user": "",
+  "password": "",
+  "database": "event-follow",
+  "useNewUrlParser": true
+}
